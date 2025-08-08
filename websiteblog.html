@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Makerspace Blog</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      line-height: 1.8;
+    }
+    .navbar {
+      background-color: #ffffff;
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .navbar .logo {
+      font-size: 1.75rem;
+      color: #0077cc;
+      font-weight: bold;
+    }
+    .navbar .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .navbar .nav-links a {
+      text-decoration: none;
+      color: #000000;
+      transition: color 0.3s ease;
+    }
+    .navbar .nav-links a:hover {
+      color: #0077cc;
+    }
+    .blog-container {
+      max-width: 900px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    .blog-post {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+    }
+    .blog-post h2 {
+      color: #0077cc;
+      font-size: 2rem;
+    }
+    .blog-post img {
+      max-width: 100%;
+      margin-top: 1rem;
+      border-radius: 1rem;
+    }
+    .editor-toggle {
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .editor-form {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      background-color: #f9f9f9;
+    }
+    .editor-form input,
+    .editor-form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+    }
+    .editor-form button {
+      width: fit-content;
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    .blog-intro {
+      text-align: center;
+      padding: 4rem 1rem 2rem;
+    }
+    .blog-intro h1 {
+      font-size: 2.5rem;
+      color: #0077cc;
+    }
+    .blog-intro p {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto;}
+  </style>
+</head>
+<body>
+    <nav class="navbar" style="background-color: #ffffff; padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <div class="logo" style="font-size: 1.75rem; color: #0077cc; font-weight: bold;">Makerspace</div>
+        <div class="nav-links" style="display: flex; gap: 2rem; align-items: center;">
+          <a href="index.html" style="text-decoration: none; color: #000000; transition: color 0.3s ease;">Home</a>
+          <a href="blog.html" style="text-decoration: none; color: #000000; transition: color 0.3s ease;">Blog</a>
+          <a href="members.html" style="text-decoration: none; color: #000000; transition: color 0.3s ease;">Members</a>
+          <a href="signup.html" style="background-color: #0077cc; color: #ffffff; padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; transition: background-color 0.3s ease;">Sign Up</a>
+        </div>
+      </nav>
+   <section class="blog-intro">
+    <h1>Welcome to the Makerspace Blog</h1>
+    <p>Explore student projects, updates from our workshop, and ideas sparked by curiosity. This space is created by our members — for our members — to share and inspire innovation.</p>
+  </section>
+
+  <main class="blog-container" id="blog">
+    <div id="posts"></div>
+
+    <div class="editor-toggle">
+      <button onclick="toggleEditor()">Editor Access</button>
+    </div>
+
+    <div class="editor-form" id="editorForm">
+      <input type="password" id="editorPassword" placeholder="Enter editor password">
+      <input type="text" id="postTitle" placeholder="Post Title">
+      <textarea id="postContent" placeholder="Date and Content" rows="6"></textarea>
+      <input type="url" id="imageUrl" placeholder="Optional Image URL (https://...)" />
+      <button onclick="addPost()">Add Post</button>
+    </div>
+  </main>
+  <section class="footer-contact" id="contact" style="background-color: #f9f9f9; padding: 3rem 2rem; text-align: center; font-size: 1rem; color: #666;">
+  <p style="font-weight: bold; margin-bottom: 1rem;">Contact Us</p>
+  <div style="line-height: 1.8;">
+    <div>
+      📧 <strong>Email:</strong> <a href="mailto:makerspace@school.edu" style="color: #0077cc; text-decoration: none;">makerspace@school.edu</a>
+    </div>
+    <div>
+      📞 <strong>Phone:</strong> <a href="tel:+1234567890" style="color: #0077cc; text-decoration: none;">(123) 456-7890</a>
+    </div>
+    <div>
+      📍 <strong>Location:</strong> Room 202, Innovation Building, Your School Name
+    </div>
+    <div>
+      🕒 <strong>Hours:</strong> Mon–Fri, 3:00–6:00 PM
+    </div>
+  </div>
+</section>
+  <script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxU54fqBAYkFZaKJYc6r5-VvdfDdi-zdJjPssYz0EdbrPb0kfAc0B-KyhRHIO65zGiHLg/exec";
+
+  window.onload = function () {
+    fetch(scriptURL)
+      .then(res => res.json())
+      .then(posts => {
+        const postContainer = document.getElementById("posts");
+        postContainer.innerHTML = "";
+        posts.reverse().forEach(post => {
+          const postElement = document.createElement("div");
+          postElement.className = "blog-post";
+          let html = `<h2>${post.title}</h2>`;
+          if (post.timestamp) {
+            const dateObj = new Date(post.timestamp);
+            const dateStr = dateObj.toLocaleDateString();
+            const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            html += `<p style="color: #555; font-size: 0.9rem; margin-top: -1rem;">Posted on ${dateStr} at ${timeStr}</p>`;
+          }
+          html += `<p>${post.content}</p>`;
+          if (post.imageUrl) {
+            html += `<img src="${post.imageUrl}" alt="Blog image" />`;
+          }
+          postElement.innerHTML = html;
+          postContainer.appendChild(postElement);
+        });
+      });
+  }
+
+  function toggleEditor() {
+    const form = document.getElementById("editorForm");
+    form.style.display = form.style.display === "flex" ? "none" : "flex";
+  }
+
+  function addPost() {
+    const password = document.getElementById("editorPassword").value;
+    if (password !== "makerspace2025") {
+      alert("Incorrect password.");
+      return;
+    }
+
+    const title = document.getElementById("postTitle").value;
+    const content = document.getElementById("postContent").value;
+    const imageUrl = document.getElementById("imageUrl").value;
+    const timestamp = new Date().toISOString();
+
+    fetch(scriptURL, {
+      method: 'POST',
+      body: new URLSearchParams({
+        title,
+        content,
+        imageUrl,
+        timestamp
+      })
+    })
+    .then(response => {
+      alert("Post submitted successfully.");
+      document.getElementById("postTitle").value = "";
+      document.getElementById("postContent").value = "";
+      document.getElementById("imageUrl").value = "";
+      window.onload(); // reload posts
+    })
+    .catch(error => alert("Error posting: " + error));
+  }
+</script>
+</body>
+</html>
